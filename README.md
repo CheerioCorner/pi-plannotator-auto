@@ -12,13 +12,6 @@ Auto-annotate extension for [Plannotator](https://github.com/backnotprop/plannot
 ## Installation
 
 ```bash
-# Local testing
-pi install ./path/to/pi-plannotator-auto
-
-# From npm (when published)
-pi install npm:@cheerio/pi-plannotator-auto
-
-# From git
 pi install git:github.com/CheerioCorner/pi-plannotator-auto
 ```
 
