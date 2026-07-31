@@ -5,20 +5,41 @@
   "description": "Auto-annotate extension for Plannotator - browser-based annotation UI for complex questions and content review",
   "author": "Cheerio",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheerioCorner/pi-plannotator-auto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CheerioCorner/pi-plannotator-auto/issues"
+  },
+  "homepage": "https://github.com/CheerioCorner/pi-plannotator-auto#readme",
   "keywords": [
     "pi-package",
     "plannotator",
     "annotation",
     "browser-ui",
-    "coding-agent"
+    "coding-agent",
+    "pi-extension",
+    "open-annotate"
   ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "pi": {
     "extensions": ["./extensions"]
   },
   "files": [
     "extensions/",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
+  "scripts": {
+    "prepublishOnly": "echo 'Publishing @cheerio/pi-plannotator-auto...'",
+    "version": "git add ."
+  },
   "dependencies": {},
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": ">=0.74.0",

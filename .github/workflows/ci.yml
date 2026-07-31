@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Verify package.json is valid
+        run: node -e "require('./package.json'); console.log('✅ package.json is valid')"
+
+      - name: Check files exist
+        run: |
+          echo "Checking required files..."
+          test -f package.json && echo "✅ package.json exists"
+          test -f README.md && echo "✅ README.md exists"
+          test -f LICENSE && echo "✅ LICENSE exists"
+          test -d extensions && echo "✅ extensions/ directory exists"
+
+      - name: Dry run publish
+        run: npm pack --dry-run
