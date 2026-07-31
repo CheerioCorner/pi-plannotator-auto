@@ -1,6 +1,9 @@
-# @cheerio/pi-plannotator-auto
+# @cheeriocorner/pi-plannotator-auto
 
 Auto-annotate extension for [Plannotator](https://github.com/backnotprop/plannotator) - provides browser-based annotation UI for complex questions and content review.
+
+[![npm version](https://img.shields.io/npm/v/@cheeriocorner/pi-plannotator-auto.svg)](https://www.npmjs.com/package/@cheeriocorner/pi-plannotator-auto)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
@@ -10,6 +13,14 @@ Auto-annotate extension for [Plannotator](https://github.com/backnotprop/plannot
 - Integrates seamlessly with `@plannotator/pi-extension`
 
 ## Installation
+
+### From NPM (Recommended)
+
+```bash
+pi install npm:@cheeriocorner/pi-plannotator-auto
+```
+
+### From GitHub
 
 ```bash
 pi install git:github.com/CheerioCorner/pi-plannotator-auto
