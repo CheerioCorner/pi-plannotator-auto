@@ -17,7 +17,6 @@ pi-plannotator-auto
 ├── extensions/
 │   └── auto-annotate.ts    ← 主要 extension（註冊 tool + command）
 ├── docs/                   ← 本資料夾（供 AI 快速理解專案）
-├── assets/                 ← gallery 用的媒體檔案
 ├── package.json            ← pi manifest + npm 設定
 └── .github/workflows/      ← CI/CD 自動化
 ```

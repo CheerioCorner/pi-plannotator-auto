@@ -31,9 +31,7 @@
   "pi": {
     "extensions": [
       "./extensions"
-    ],
-    "image": "https://raw.githubusercontent.com/CheerioCorner/pi-plannotator-auto/main/assets/screenshot.png",
-    "video": "https://raw.githubusercontent.com/CheerioCorner/pi-plannotator-auto/main/assets/demo.mp4"
+    ]
   },
   "files": [
     "extensions/",
