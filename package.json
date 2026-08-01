@@ -1,6 +1,6 @@
 {
   "name": "@cheeriocorner/pi-plannotator-auto",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "Auto-annotate extension for Plannotator - browser-based annotation UI for complex questions and content review",
   "author": "Cheerio",
