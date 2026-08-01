@@ -11,7 +11,6 @@
 | **要新增 tool 或 command** | docs/tools.md → extensions/auto-annotate.ts | 了解現有 tool 的模式 |
 | **要修改依賴關係** | docs/dependencies.md → package.json | 了解依賴類型和影響 |
 | **要發佈新版本** | 本文件的「正確工作流程」章節 | 避免流程錯誤 |
-| **要上傳 gallery 媒體** | README.md 的 Gallery Metadata 章節 | 了解格式要求 |
 
 ### 快速閱讀順序
 
@@ -85,9 +84,6 @@ pi-plannotator-auto/
 │   ├── dependencies.md     ← 依賴關係
 │   ├── log.md              ← 變更歷史
 │   └── references/         ← 外部資源引用
-├── assets/                  ← gallery 用的截圖和影片
-│   ├── screenshot.png
-│   └── demo.mp4
 ├── package.json             ← 包含 pi manifest
 ├── README.md
 ├── LICENSE
@@ -105,9 +101,7 @@ pi-plannotator-auto/
   "name": "@cheeriocorner/pi-plannotator-auto",
   "keywords": ["pi-package"],  // ← gallery 抓取依據
   "pi": {
-    "extensions": ["./extensions"],
-    "image": "...",  // ← gallery 預覽圖
-    "video": "..."   // ← gallery 示範影片
+    "extensions": ["./extensions"]
   }
 }
 ```
@@ -119,8 +113,7 @@ pi-plannotator-auto/
 Package 要出現在 pi.dev/packages，需要：
 1. ✅ `pi-package` keyword
 2. ✅ `pi` manifest（extensions/skills/prompts/themes）
-3. ✅ `image` 或 `video` 欄位（可選，但有會更吸引人）
-4. ⏳ npm registry indexing（可能需要幾小時到幾天）
+3. ⏳ npm registry indexing（可能需要幾小時到幾天）
 
 ---
 

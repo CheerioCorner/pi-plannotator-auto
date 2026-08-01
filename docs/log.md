@@ -21,7 +21,6 @@ tags: [log, history, changes]
 * **Update**: 將 docs/ 轉換為 OKF 格式，加入 frontmatter
 
 ### Package Updates
-* **Update**: 加入 gallery metadata (image, video) 到 package.json
 * **Update**: 修正依賴關係，將 @plannotator/pi-extension 從 peerDependencies 移到 dependencies
 
 ---
