@@ -31,7 +31,9 @@
   "pi": {
     "extensions": [
       "./extensions"
-    ]
+    ],
+    "image": "https://raw.githubusercontent.com/CheerioCorner/pi-plannotator-auto/main/assets/screenshot.png",
+    "video": "https://raw.githubusercontent.com/CheerioCorner/pi-plannotator-auto/main/assets/demo.mp4"
   },
   "files": [
     "extensions/",
@@ -42,10 +44,11 @@
     "prepublishOnly": "echo 'Publishing @cheerio/pi-plannotator-auto...'",
     "version": "git add ."
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "@earendil-works/pi-coding-agent": ">=0.74.0",
+  "dependencies": {
     "@plannotator/pi-extension": "*"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": ">=0.74.0"
   },
   "devDependencies": {
     "@earendil-works/pi-coding-agent": ">=0.74.0",
