@@ -9,6 +9,18 @@ tags: [log, history, changes]
 
 # 變更歷史
 
+## 2026-08-01
+
+### Automation
+* **Update**: 自動化 publish 流程 — 合併 PR 後自動建立 tag + publish
+* **Update**: 更新 publish.yml，從 tag 觸发改為 master push 觸發
+* **Update**: 加入版本檢查，避免重複發布
+
+### Documentation
+* **Update**: 更新 AGENTS.md 和 SKILL.md，反映新的自動化流程
+
+---
+
 ## 2026-07-31
 
 ### Initialization

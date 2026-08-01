@@ -2,19 +2,21 @@ name: Publish to NPM
 
 on:
   push:
-    tags:
-      - 'v*'  # 只在推送 v 開頭的 tag 時觸發（例如 v1.0.0, v2.1.3）
+    branches:
+      - master  # 當 PR 合併到 master 時觸發
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write  # 需要寫入權限來建立 tag
       id-token: write  # npm provenance 需要
     steps:
       # 1. 檢出程式碼
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 需要完整歷史來檢查 tag
 
       # 2. 設定 Node.js
       - name: Setup Node.js
@@ -27,25 +29,57 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
-      # 4. 驗證版本號與 tag 是否一致
-      - name: Verify version matches tag
+      # 4. 取得版本號並檢查是否已存在
+      - name: Check if version already exists
+        id: version_check
         run: |
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          TAG_VERSION=${GITHUB_REF#refs/tags/v}
-          echo "Package version: $PACKAGE_VERSION"
-          echo "Tag version: $TAG_VERSION"
-          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
-            echo "❌ Version mismatch! package.json=$PACKAGE_VERSION, tag=$TAG_VERSION"
-            exit 1
+          echo "version=$PACKAGE_VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Package version: $PACKAGE_VERSION"
+          
+          # 檢查 tag 是否已存在
+          if git rev-parse "v$PACKAGE_VERSION" >/dev/null 2>&1; then
+            echo "⚠️ Tag v$PACKAGE_VERSION already exists, skipping publish"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ Tag v$PACKAGE_VERSION does not exist, will publish"
+            echo "skip=false" >> $GITHUB_OUTPUT
           fi
-          echo "✅ Version matches: $PACKAGE_VERSION"
 
-      # 5. 顯示將要發布的檔案清單
+      # 5. 建立 tag 並發佈（如果版本不存在）
+      - name: Create tag and publish to NPM
+        if: steps.version_check.outputs.skip == 'false'
+        run: |
+          VERSION=${{ steps.version_check.outputs.version }}
+          echo "🏷️ Creating tag v$VERSION"
+          
+          # 建立 tag
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin "v$VERSION"
+          
+          echo "✅ Tag v$VERSION created and pushed"
+
+      # 6. 顯示將要發布的檔案清單
       - name: Preview publish contents
+        if: steps.version_check.outputs.skip == 'false'
         run: npm pack --dry-run
 
-      # 6. 發佈到 NPM
+      # 7. 發佈到 NPM
       - name: Publish to NPM
+        if: steps.version_check.outputs.skip == 'false'
         run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # 8. 輸出結果
+      - name: Summary
+        run: |
+          if [ "${{ steps.version_check.outputs.skip }}" == "true" ]; then
+            echo "## ⏭️ Skipped" >> $GITHUB_STEP_SUMMARY
+            echo "Version ${{ steps.version_check.outputs.version }} already exists." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## ✅ Published" >> $GITHUB_STEP_SUMMARY
+            echo "Version **${{ steps.version_check.outputs.version }}** has been published to npm." >> $GITHUB_STEP_SUMMARY
+          fi

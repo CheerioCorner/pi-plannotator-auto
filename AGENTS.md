@@ -57,17 +57,18 @@ git push -u origin feature/your-feature-name
 # 5. 建立 Pull Request
 gh pr create --title "feat: add new feature" --body "description"
 
-# 6. 合併 PR 後，建立並推送 tag
-git checkout master
-git pull
-git tag v1.0.2  # 版本號要和 package.json 一致
-git push origin v1.0.2
+# 6. 合併 PR → 自動觸發 publish！
 ```
 
 ### GitHub Actions 會自動：
-- 驗證 package.json 和 tag 版本一致
-- 執行 `npm publish --access public --provenance`
-- 發布到 npm registry
+- ✅ 讀取 package.json 的 version
+- ✅ 建立 tag (vX.X.X)
+- ✅ 執行 `npm publish --access public --provenance`
+- ✅ 發布到 npm registry
+
+### 注意事項
+- 如果 version 已經發布過（tag 已存在），會自動跳過
+- 只需要 bump version + 合併 PR，其他全自動！
 
 ---
 
